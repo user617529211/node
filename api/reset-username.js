@@ -1,6 +1,16 @@
+import Cors from 'cors';
+
 let username = null;
 
-export default function handler(req, res) {
+// Initialize CORS middleware
+const cors = Cors({
+  methods: ['GET', 'POST', 'OPTIONS'],
+});
+
+export default async function handler(req, res) {
+  // Run CORS middleware
+  await cors(req, res, () => {});
+
   if (req.method === 'POST') {
     username = null;
     console.log('Username reset.');
@@ -9,3 +19,4 @@ export default function handler(req, res) {
     res.status(405).send('Method Not Allowed');
   }
 }
+
